@@ -2,8 +2,13 @@ const router = require('express').Router();
 const { Book } = require('../models');
 
 
-router.get('/', (req, res) => {
-  res.send('ola')
+router.get('/', async (req, res) => {
+  try {
+    const books = await Book.findAll()
+    res.status(200).json(books)
+  } catch (error) {
+    console.log(error)
+  }
 });
 
 router.post('/register', async (req, res, next) => {
@@ -18,8 +23,8 @@ router.post('/register', async (req, res, next) => {
   } catch (error) {
     console.log(error)
   }
-
-
 });
+
+
 
 module.exports = router;
